@@ -1,0 +1,112 @@
+Requerimientos Funcionales
+
+1. RF-01: El sistema debe permitir registrar destinos con nombre, país, descripción y estado (activo/inactivo). 
+Criterio de aceptación: Al guardar un destino válido, este aparece en el listado de destinos y puede consultarse por su ID.
+Prioridad: Alta
+
+2. RF-02: El sistema debe permitir modificar y eliminar destinos existentes.
+Criterio de aceptación: Un destino modificado refleja los nuevos datos al consultarlo; un destino eliminado deja de aparecer en el listado.
+Prioridad: Alta
+
+3. RF-03: El sistema debe permitir listar y consultar destinos disponibles.
+Criterio de aceptación: La consulta devuelve todos los destinos activos registrados, con paginación o filtro por país.
+Prioridad: Alta
+
+4. RF-04: El sistema debe permitir crear paquetes que combinen uno o más destinos, con fechas de inicio/fin y costo calculado.
+Criterio de aceptación: Al crear un paquete con destinos y fechas válidas, el sistema calcula y muestra el costo total; el paquete aparece en el listado.
+Prioridad: Alta
+
+5. RF-05: El sistema debe permitir consultar la disponibilidad de un paquete (cupos y fechas).
+Criterio de aceptación: Al consultar un paquete, el sistema indica cupos disponibles y si las fechas están vigentes.
+Prioridad: Alta
+
+6. RF-06: El sistema debe permitir que los clientes se registren con datos personales y credenciales.
+Criterio de aceptación: Un cliente registrado puede iniciar sesión con sus credenciales; sus datos quedan almacenados.
+Prioridad: Alta
+
+7. RF-07: El sistema debe permitir iniciar y cerrar sesión de clientes.
+Criterio de aceptación: Un cliente con credenciales válidas accede a su panel; con credenciales inválidas recibe error.
+Prioridad: Alta
+
+
+
+
+8. RF-08: El sistema debe permitir reservar un paquete seleccionando fechas y cantidad de personas.
+Criterio de aceptación: Al confirmar una reserva válida, esta se registra con estado "confirmada" y descuenta cupos del paquete.
+Prioridad: Alta
+
+9. RF-09: El sistema debe permitir al cliente consultar su historial de reservas.
+Criterio de aceptación: El cliente autenticado ve todas sus reservas con estado, fechas y paquete asociado.
+Prioridad: Media
+
+10. RF-10: El sistema debe permitir recuperar una reserva a partir de un código o datos del cliente.
+Criterio de aceptación: Dado un código de reserva válido, el sistema devuelve los datos de la reserva (cliente, paquete, fechas, estado).
+Prioridad: Media
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Requerimientos No funcionales
+
+11. RNF-01: El sistema debe almacenar las contraseñas como hashes (nunca en texto plano).
+Criterio de aceptación: En la tabla de usuarios, el campo contraseña contiene un hash; la clave original no aparece almacenada.
+Prioridad: Alta
+
+12. RNF-02: El sistema debe validar los datos de entrada (fechas, cupos, campos obligatorios) antes de persistir.
+Criterio de aceptación: Un intento de reserva con fecha inválida o cupo negativo es rechazado con mensaje de error.
+Prioridad: Alta
+
+13. RNF-03: El sistema debe responder en menos de 2 segundos a consultas de destinos y paquetes.
+Criterio de aceptación: Una prueba con 100 registros devuelve el listado en < 2 s.
+Prioridad: Media
+
+14. RNF-04: El sistema debe separar dominio y persistencia (arquitectura por capas).
+Criterio de aceptación: El código está organizado en carpetas dominio/ y persistencia/; la conexión a BD vive solo en persistencia.
+Prioridad: Alta
+
+15. RNF-05: El sistema debe usar SQLite en el Hito 1 y permitir migrar a MySQL en el Hito 2.
+Criterio de aceptación: La prueba de conexión a SQLite es repetible y documentada en el README.
+Prioridad: Media
+
+16. RNF-06: El código Python y SQL debe estar en inglés; los mensajes al usuario en español.
+Criterio de aceptación: Revisión de código: variables/funciones en inglés, mensajes de UI en español.
+Prioridad: Media
+
+17. RNF-07: El sistema debe versionar la configuración sensible con ".env.example" y ".gitignore" (el ".env" real queda local).
+Criterio de aceptación: El repositorio no contiene el ".env" real; ".env.example" documenta las variables necesarias.
+Prioridad: Alta
+
+
+
+18. RNF-08: Toda integración a main debe pasar por pull request aprobado (push directo prohibido).
+Criterio de aceptación: El historial de Git muestra PRs revisados y aprobados antes del merge.
+Prioridad: Alta
+
+19. RNF-09: El sistema debe registrar en Jira el avance de cada tarea (fecha, responsable, evidencia).
+Criterio de aceptación: Cada tarjeta tiene comentario de inicio y cierre con enlace a commit/PR.
+Prioridad: Media
+

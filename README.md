@@ -1,55 +1,117 @@
-# Viajes Aventura
+# viajes_aventura_poo
 
-Sistema de gestión para una agencia de viajes: administración de **destinos**, **paquetes** y **reservas** de clientes.
+Travel agency management system for **Viajes Aventura**. It handles
+clients, travel packages, destinations, and reservations, designed with
+a robust layered architecture and secure database transactions.
 
-Proyecto — Sprint 1 / Hito 1.
+## System Features
 
----
+-   **Client Management:** Register new clients with secure PBKDF2
+    password hashing.
+-   **Package Management:** View available travel packages, dates,
+    pricing, and available slots.
+-   **Reservations:** Book packages for clients, automatically
+    generating unique reservation codes and decreasing available slots.
+-   **Many-to-Many Relationships:** Assign multiple destinations to a
+    single travel package.
+-   **Persistence:** Supports SQLite (default) and MySQL, configurable
+    via environment variables.
+-   **Transactions:** Ensures data integrity (e.g., a reservation is
+    only saved if slots can be successfully deducted).
 
-## Descripción
+## Prerequisites
 
-Viajes Aventura necesita una aplicación que permita:
+-   Python 3.10 or higher.
+-   Visual Studio Code (recommended).
+-   MySQL 8+ (only required if you use `DB_ENGINE=mysql`).
 
-- Registrar, modificar, eliminar y listar **destinos**.
-- Crear **paquetes** que combinen destinos, con fechas, costos y disponibilidad.
-- Que los **clientes** se registren, inicien sesión, reserven paquetes y consulten su historial.
-- **Recuperar una reserva** a partir de un código o de los datos del cliente.
+## Installation
 
-La solución se construye con **arquitectura por capas** (presentación, lógica de negocio y persistencia) y **SQLite** como motor de base de datos en el Hito 1. MySQL se incorpora en el primer flujo del Hito 2.
+### 1. Clone the repository
 
- **Convención del proyecto:** código Python y SQL **en inglés**; mensajes al usuario **en español**.
+``` bash
+git clone <url-del-repositorio>
+cd viajes_aventura_poo
+```
 
----
+### 2. Create and activate the virtual environment
 
-## Requisitos previos
+**Windows:**
 
-- Python **3.10+**
-- Git
-- SQLite3 (incluido con Python)
+``` bash
+python -m venv .venv
+.venv\\Scripts\\activate
+```
 
----
+**macOS / Linux:**
 
-## Preparar el entorno
+``` bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
-1. **Clonar el repositorio**
+### 3. Install dependencies
 
-   ```bash
-   git clone https://github.com/<usuario>/viajes-aventura.git
-   cd viajes-aventura
+``` bash
+pip install -r requirements.txt
+```
 
-2. **Crear y activar un entorno virtual**
-   python -m venv venv
-# Linux / macOS
-  source venv/bin/activate
-# Windows
-  venv\Scripts\activate
+### 4. Configure environment variables
 
-3. **Instalar dependencias**
-   pip install -r requirements.txt
+Duplicate the `.env.example` file and rename it to `.env`. Adjust the
+values according to your database engine (SQLite by default).
 
-4. **Configurar variables de entorno**
-   cp .env.example .env
-# Contenido del .env.example:
-DB_ENGINE=sqlite
-DB_PATH=./data/viajes_aventura.db
-APP_ENV=development
+## Execution
+
+Make sure the virtual environment is activated and run:
+
+``` bash
+python main.py
+```
+
+## Initial Data (Seed)
+
+On the first run, the system will automatically create the database
+tables and populate them with sample data:
+
+-   **Statuses:** Pending, Confirmed, Cancelled.
+-   **Transport Types:** Flight, Bus.
+-   **Destinations:** Patagonia, Machu Picchu.
+-   **Packages:** Adventure in Patagonia, Machu Picchu Express.
+
+## Architecture
+
+The project follows a strict layered architecture to ensure separation
+of concerns and scalability:
+
+-   **Domain (`domain/`):** Pure business entities (`Client`, `Package`,
+    `Reservation`, etc.) with built-in validation and password hashing
+    logic.
+-   **Persistence (`persistence/`):** Data Access Objects (DAOs) for
+    safe database interaction using parameterized queries to prevent SQL
+    injection.
+-   **Services (`services/`):** Business logic layer
+    (`booking_service.py`) that orchestrates interactions between DAOs
+    (e.g., checking availability before saving a reservation).
+-   **Presentation (`menus/`):** Console user interfaces with robust
+    input validation loops.
+-   **Utils (`utils/`):** Helper functions for input validation and UI
+    management.
+
+## Author
+
+Juan Pablo Miranda (Adapted for Viajes Aventura)
+
+## License
+
+Academic project - INACAP (TI3021).
+
+## `requirements.txt`
+
+Make sure your `requirements.txt` includes the required libraries so the
+project can run in different environments:
+
+``` text
+python-dotenv==1.0.1
+PyMySQL==1.1.1
+```

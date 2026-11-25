@@ -1,32 +1,35 @@
-# Entorno virtual
-venv/
-.venv/
-env/
-ENV/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# Variables de entorno
+# Environments
 .env
-.env.*
-!.env.example
-!.env.template
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
-# Base de datos SQLite 
+# SQLite Databases
 *.db
 *.sqlite
 *.sqlite3
-ecotech.db
 
-# Registros y archivos temporales
-*.log
-*.tmp
-*.bak
-*.swp
-*~
-
-# Visual Studio Code
+# IDE & OS Files
 .vscode/
 .idea/
+.DS_Store
+Thumbs.db
 
-# Caché y archivos temporales de Python
-__pycache__/
-*.pyc
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.pytest_cache/
